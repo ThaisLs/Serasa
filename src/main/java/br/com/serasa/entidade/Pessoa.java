@@ -9,11 +9,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.data.annotation.Transient;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Entity
@@ -21,8 +21,9 @@ import lombok.Data;
 @Data
 @AttributeOverride(name = "id", column = @Column(name = "ID_PESSOA"))
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@AllArgsConstructor
 public class Pessoa extends AbstractPersistable<Long> {
-	
+
 	@NotNull
     @Size(max = 100)
 	@Column(name="NM_PESOSA")
@@ -51,5 +52,10 @@ public class Pessoa extends AbstractPersistable<Long> {
     @Min(0) @Max(1000)
 	@Column(name="NU_SCORE")
 	private Integer score;
+
+	public Pessoa() {
+		super();
+	}
+	
 	
 }
