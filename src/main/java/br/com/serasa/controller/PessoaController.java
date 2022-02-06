@@ -2,6 +2,8 @@ package br.com.serasa.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -51,7 +53,7 @@ public class PessoaController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void postPessoas(@RequestBody PessoaRequestDto pessoa){	
+	public void postPessoas(@RequestBody @Valid PessoaRequestDto pessoa){	
 		repo.salvaPessoa(pessoa);
 	}
 	

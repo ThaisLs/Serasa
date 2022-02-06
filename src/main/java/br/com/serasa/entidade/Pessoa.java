@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -24,13 +25,13 @@ import lombok.Data;
 @AllArgsConstructor
 public class Pessoa extends AbstractPersistable<Long> {
 
-	@NotNull
+	@NotBlank
     @Size(max = 100)
 	@Column(name="NM_PESOSA")
 	private String nome;
 	
-	@NotNull
-    @Size(max = 11)
+	@NotBlank
+    @Size(max = 20)
 	@Column(name="NU_TELEFONE")
 	private	String telefone;
 	
@@ -38,12 +39,12 @@ public class Pessoa extends AbstractPersistable<Long> {
 	@Column(name="IDADE")
 	private	Integer idade;
 	
-	@NotNull
+	@NotBlank
     @Size(max = 80)
 	@Column(name="DS_CIDADE")
 	private String cidade;
 	
-	@NotNull
+	@NotBlank
     @Size(max = 2, message="O Campo Estado deve conter 2 caracteres")
 	@Column(name="DS_ESTADO")
 	private String estado;

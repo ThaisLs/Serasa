@@ -11,7 +11,7 @@ public class ScoreRecomendavel implements IScoreStrategy{
 	@Override
 	public String defineDescricao(int score) {
 		if(score >= 701 && score <= 1000) {
-			return  ScoreEnum.ACEITAVEL.getDescricao();
+			return  ScoreEnum.RECOMENDAVEL.getDescricao();
 		}
 		return null;
 	}

@@ -23,14 +23,14 @@ public class PessoaServiceImpl implements IPessoaService {
 	
 	public PessoaDto findPessoa(Long id) {	
 		Optional<Pessoa> pessoa = repo.findById(id);
-		if(!Optional.ofNullable(pessoa).isPresent()) {
+		if(!pessoa.isPresent()) {
 			return null;
 		}
 		return converter.convertEntityToDto(pessoa.get());
 	}
 
 	public List<PessoaDto> findPessoas(Pageable page) {
-		Page<Pessoa> pessoas = repo.findAll(page);
+		Page<Pessoa> pessoas = repo.findAll(page);		
 		if(pessoas.getSize() == 0) {
 			return null;
 		}

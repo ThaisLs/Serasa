@@ -10,15 +10,14 @@ import br.com.serasa.dto.PessoaDto;
 import br.com.serasa.dto.PessoaRequestDto;
 import br.com.serasa.entidade.Pessoa;
 import br.com.serasa.service.IConverter;
-import br.com.serasa.service.IScoreStrategy;
+import br.com.serasa.service.IDefineScore;
 import lombok.RequiredArgsConstructor;
 
 
 @Service
 @RequiredArgsConstructor
 public class ConverterImpl implements IConverter{
-//	private final ScoreContext score;
-	private final IScoreStrategy score;
+	private final IDefineScore score;
 
 	public List<PessoaDto> convertToDtoList(Page<Pessoa> pessoas) {	 
 		 return pessoas.stream().map(this::convertToDto).collect(Collectors.toList());
@@ -28,8 +27,7 @@ public class ConverterImpl implements IConverter{
 	    return PessoaDto.builder().nome(pessoa.getNome())
 	    							.telefone(pessoa.getTelefone())
 	    							.idade(pessoa.getIdade()) 
-	    							//.scoreDescricao(score.defineDescricao(pessoa.getScore()))
-	    							.scoreDescricao(score.defineDescricao(pessoa.getScore()))
+	    							.scoreDescricao(score.executar(pessoa.getScore()))
 	    							.build();
 	}
 	
@@ -37,8 +35,7 @@ public class ConverterImpl implements IConverter{
 	    return PessoaDto.builder().nome(pessoa.getNome())
 	    							.cidade(pessoa.getCidade())
 	    							.estado(pessoa.getEstado()) 
-	    							//.scoreDescricao(iscore.defineDescricao(pessoa.getScore()))
-	    							.scoreDescricao(score.defineDescricao(pessoa.getScore()))
+	    							.scoreDescricao(score.executar(pessoa.getScore()))
 	    							.build();
 	}
 	
