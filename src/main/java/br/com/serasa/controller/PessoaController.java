@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,13 +32,10 @@ public class PessoaController {
 	
 	@GetMapping("{id}")	
 	public PessoaDto getPessoa(@PathVariable("id") Long id){
-		PessoaDto pessoa = null;
-		try {
-			pessoa =repo.findPessoa(id);
-		} catch (Exception e) {
+		PessoaDto pessoa = repo.findPessoa(id);		
+		if(pessoa == null) {
 			throw new PessoaNoContentException("Nenhum cadastro encontrado");
-		}
-	
+		}			
 		return pessoa;
 	}
 	
@@ -45,7 +43,7 @@ public class PessoaController {
 	public List<PessoaDto> getPessoas(@PageableDefault(sort = "nome", direction = Sort.Direction.ASC,
 									            page = 0, size = 10) Pageable page){
 		List<PessoaDto> pessoas =repo.findPessoas(page);
-		if(pessoas ==null) {
+		if(CollectionUtils.isEmpty(pessoas)) {
 			throw new PessoaNoContentException("Nenhum cadastro encontrado");
 		}
 		return pessoas;
